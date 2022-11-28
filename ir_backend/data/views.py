@@ -8,6 +8,7 @@ from data.service import DataService
 def insert_data(request):
   data_service = DataService()
   try:
-      return Response({'No of row created': 10}, status=status.HTTP_201_CREATED)
+    no_data_inserted = data_service.create_index()
+    return Response({'No of data inserted': no_data_inserted}, status=status.HTTP_201_CREATED)
   except Exception as err:
-      return Response({'Error Message': err}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return Response({'Error Message': err}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
