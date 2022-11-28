@@ -36,9 +36,10 @@ class ElasticSearchService:
     total_no_of_doc = response['hits']['total']['value']
     doc_max_score = response['hits']['max_score']
     result=[]
-    print('Total No. Of Doc:',total_no_of_doc)
     for hit in response['hits']['hits']:
-      print(hit["_score"])
-      print(hit["_source"])
-      # print("%(movie_name)s %(genre)s: %(rating)s" % hit["_source"]["doc"])
-      print("------------------------------")
+      hit["_source"]["score"] = hit["_score"]
+      result.append(hit["_source"])
+    return {
+        "retrieved_doc_no": total_no_of_doc,
+        "search_result":result
+      }

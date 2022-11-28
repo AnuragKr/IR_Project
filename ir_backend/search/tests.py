@@ -7,8 +7,16 @@ class SearchServiceTest(TestCase):
     self.elk_service.connect()
   
   def test_search(self):
-    search_obj = {'query': {
-        'match': {'movie_name': 'Black Adam'}}}
-
-    resp = self.elk_service.search('movies_1',search_obj)
-    self.elk_service.parse_response(resp)
+    search_obj = {
+        "query": {
+            "multi_match": {
+                "query": "black adam",
+                "fields": ["movie_name",
+                           "abstract", "plot", "rating", 
+                           "genre"]
+            }
+        }
+    }
+    resp = self.elk_service.search('movies',search_obj)
+    result = self.elk_service.parse_response(resp)
+    print(result)

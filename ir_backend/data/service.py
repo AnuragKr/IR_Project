@@ -1,6 +1,5 @@
 from elk.service import ElasticSearchService
-from pathlib import Path
-import json,glob
+import json
 
 class DataService:
   def __init__(self):
@@ -32,6 +31,25 @@ class DataService:
                      "imdb": {
                          "type": "double"
                      },
+                     "metascore":{
+                         "type": "integer",
+                         "include_in_all": False,
+                         "index": "no"
+                     },
+                     "runtime_min":{
+                       "type": "integer"
+                     },
+                     "votes":{
+                         "type": "integer",
+                         "include_in_all": False,
+                         "index": "no"
+                     },
+                     "runtime_min":{
+                         "type": "integer"
+                     },
+                     "abstract": {
+                         "type": "text"
+                     },
                      "plot":{
                       "type": "text"
                      }
@@ -41,7 +59,7 @@ class DataService:
     self.elk_service.create_index(idx_name,idx_setting)
 
   def insert_data(self):
-    idx_name = 'movies_1'
+    idx_name = 'movies'
     self.create_index(idx_name)
     with open('data/static/movies.json', 'r') as j:
      contents = json.loads(j.read())
@@ -49,7 +67,6 @@ class DataService:
       try:
         self.elk_service.insert_document(idx_name,movie)
       except Exception as err:
-        print(movie)
-        print('-----------')
+        continue
 
     return len(contents)
