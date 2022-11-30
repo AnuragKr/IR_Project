@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewpoint" content="width=device-width, initial-scal=1.0">
+    <title>Information Retrieval Project</title>
+<style>
+
+    * {
+        margin : 0;
+        padding : 0;
+        box-sizing : border-box;
+        font-family : 'Poppins', san-serif;
+    }
+    
+    .container{
+        width: 100%;
+        min-height: 100vh;
+        padding: 5%;
+        background-position: center;
+        background-size: cover;
+        background-color: LightGray;
+        align-items: cente;
+    
+    }
+
+    input[type=text], select {
+        width: 90%;
+        padding: 12px 30px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-sizing: border-box;
+        
+        }
+
+    input[type=submit] {
+            width: 5%;
+            background-color: DodgerBlue;
+            color: white;
+            padding: 10px 0px;
+            display: inline-black
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            
+            }
+
+            #content {
+                font-family: Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 80%;
+                {% comment %} background-color: black;
+                color: white; {% endcomment %}
+              }
+              
+              #content td {
+                border: 1px solid #ddd;
+                {% comment %} text-align: center; {% endcomment %}
+                padding: 8px;
+              }
+              
+              {% comment %} #content tr:nth-child(even){background-color: #f2f2f2;} {% endcomment %}
+              
+              #content tr:hover {background-color: #ddd;}
+              
+              #content th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: center;
+                background-color: LightGray;
+                color: black;
+              }
+
+     
+              
+
+</style>
+</head>
+<body>
+<div class="container">
+    <h3> {{query}}</h3>
+</br>
+</br>
+{% for movie in data%}
+
+   <table id="content">
+    <tr>
+       <td rowspan="7" width="5%" text-align: "center">{{forloop.counter}}</td>
+        
+     </tr>
+      <tr>
+         <td width="20%">Title</td>
+         <td >{{movie.movie_name}}</td>
+         <td rowspan="4" width="10%"><img src="https://hippy.in/wp-content/uploads/2014/06/lagaan-bollywood-movie-poster.jpg" alt="movieimage" width="150" height="200"></td>
+      </tr>
+      <tr>
+        <td width="20%">Imdb Rating</td>
+        <td >{{movie.imdb}}</td>
+      </tr>
+      <tr>
+        <td width="20%">Year</td>
+        <td >{{movie.year}}</td>
+      </tr>
+      <tr>
+        <td width="20%">Genres</td>
+        <td >{{movie.genre}}</td>
+      </tr>
+      <tr>
+        <td width="20%">Plot</td>
+        <td colspan="3">{{movie.plot}}</td>
+      </tr>
+      <tr>
+        <td width="20%">Summary</td>
+        <td colspan="3">{{movie.abstract}}</td>
+      </tr>
+   </table>
+  </br>
+  </br>
+   {% endfor %}
+</div>
+</body>
+</html>
+
+
