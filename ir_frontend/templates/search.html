@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewpoint" content="width=device-width, initial-scal=1.0">
+    <title>Information Retrieval Project</title>
+<style>
+
+    * {
+        margin : 0;
+        padding : 0;
+        box-sizing : border-box;
+        font-family : 'Poppins', san-serif;
+    }
+    
+    .container{
+        width: 100%;
+        min-height: 100vh;
+        padding: 5%;
+        background-position: center;
+        background-size: cover;
+        background-color: LightGray;
+        align-items: cente;
+    
+    }
+
+    input[type=text], select {
+        width: 80%;
+        padding: 12px 30px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-sizing: border-box;
+        
+        }
+
+        input[type=submit] {
+            width: 5%;
+            background-color: DodgerBlue;
+            color: white;
+            padding: 10px 0px;
+            display: inline-black
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            
+            }
+              
+
+</style>
+</head>
+<body>
+<div class="container">
+<form action="/results", method='post'>
+    {% csrf_token %}
+    <input type="text" placeholder="type your query" name="query">
+    <input type="submit" value="Search">
+
+</form>
+</div>
+</body>
+</html>
