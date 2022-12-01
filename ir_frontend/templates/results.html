@@ -51,19 +51,22 @@
                 font-family: Arial, Helvetica, sans-serif;
                 border-collapse: collapse;
                 width: 80%;
+                background-color:Gray;
+                {% comment %} background-color:lightpink; {% endcomment %}
                 {% comment %} background-color: black;
                 color: white; {% endcomment %}
               }
               
               #content td {
-                border: 1px solid #ddd;
+                {% comment %} border: 1px solid #ddd; {% endcomment %}
+                border-bottom: 0.1px solid black;
                 {% comment %} text-align: center; {% endcomment %}
                 padding: 8px;
               }
               
               {% comment %} #content tr:nth-child(even){background-color: #f2f2f2;} {% endcomment %}
               
-              #content tr:hover {background-color: #ddd;}
+              {% comment %} #content tr:hover {background-color: #ddd;} {% endcomment %}
               
               #content th {
                 padding-top: 12px;
@@ -80,14 +83,14 @@
 </head>
 <body>
 <div class="container">
-    <h3> {{query}}</h3>
+    <h3> Showing the results for the query "{{query}}"</h3>
 </br>
 </br>
 {% for movie in data%}
 
    <table id="content">
     <tr>
-       <td rowspan="7" width="5%" text-align: "center">{{forloop.counter}}</td>
+       <td rowspan="7" width="5%" text-align: "center" border: 1px solid black>{{forloop.counter}}</td>
         
      </tr>
       <tr>

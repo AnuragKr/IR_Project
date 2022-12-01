@@ -6,7 +6,7 @@ from search.service import SearchService
 
 @api_view(['GET'])
 def get_bm25_text_field_result(request):
-    query = request.GET.get('query', None)
+    query = request.data['query']
     if query is None:
         return Response("Parameter is missing", status=status.HTTP_400_BAD_REQUEST)
     search_service = SearchService()
