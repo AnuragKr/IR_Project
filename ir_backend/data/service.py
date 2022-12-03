@@ -66,6 +66,16 @@ class DataService:
                     "plot": {
                         "type": "string",
                         "analyzer": "basic_analyzer",
+                    },
+                    "movie_link": {
+                        "type": "string",
+                        "include_in_all": False,
+                        "index": "no"
+                    },
+                    "image_link": {
+                        "type": "string",
+                        "include_in_all": False,
+                        "index": "no"
                     }
                 }
             }
@@ -139,6 +149,16 @@ class DataService:
                     "plot": {
                         "type": "string",
                         "analyzer": "basic_analyzer",
+                    },
+                    "movie_link": {
+                        "type": "string",
+                        "include_in_all": False,
+                        "index": "no"
+                    },
+                    "image_link": {
+                        "type": "string",
+                        "include_in_all": False,
+                        "index": "no"
                     }
                 }
             }

@@ -66,5 +66,20 @@ class SearchService:
     resp = self.elk_service.search('autocomplete', search_obj)
     return self.elk_service.parse_response(resp)
 
+  def search_text_field_bm25(self, search_query):
+    query_obj = []
+    for key,value in search_query.items():
+        query_obj.append({'term':
+                          {key: value}})
+
+    search_obj = {'query':
+     {'bool':
+        {'must':query_obj}
+     }
+    }
+    print(search_obj)
+    resp = self.elk_service.search('movies', search_obj)
+    return self.elk_service.parse_response(resp)
+
 
 

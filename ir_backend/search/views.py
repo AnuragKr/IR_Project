@@ -2,6 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from search.service import SearchService
+import json
 # Create your views here.
 
 @api_view(['GET'])
@@ -53,3 +54,18 @@ def get_bm25_search_suggestion(request):
         return Response(result, status=status.HTTP_200_OK)
     except Exception as err:
         return Response({'Error Message': err}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['GET'])
+def get_field_search_result(request):
+    if request.body is None:
+        return Response("Parameter is missing", status=status.HTTP_400_BAD_REQUEST)
+    search_service = SearchService()
+    try:
+        query_obj = json.loads(request.body.decode("utf-8"))
+        print(query_obj)
+        result = search_service.search_text_field_bm25(query_obj)
+        return Response(result, status=status.HTTP_200_OK)
+    except Exception as err:
+        return Response({'Error Message': err}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
