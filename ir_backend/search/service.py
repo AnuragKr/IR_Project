@@ -19,6 +19,20 @@ class SearchService:
     resp = self.elk_service.search('movies', search_obj)
     return self.elk_service.parse_response(resp)
 
+  def search_text_tf_idf(self, search_query):
+    search_obj = {
+        "query": {
+            "multi_match": {
+                "query": search_query,
+                "fields": ["movie_name",
+                           "abstract", "plot", "rating",
+                           "genre"]
+            }
+        }
+    }
+    resp = self.elk_service.search('movies_tf_idf', search_obj)
+    return self.elk_service.parse_response(resp)
+
   def search_fuzzy_text_bm25(self, search_query):
     #Link -> https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#fuzziness
     search_obj = {

@@ -71,6 +71,79 @@ class DataService:
             }
         }
         self.elk_service.create_index(idx_name, idx_setting)
+    
+    def create_tf_idf_index(self, idx_name):
+        #Link - https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-similarity.html
+        idx_name = idx_name
+        idx_setting = {
+                "settings": {
+                    "similarity": {
+                        "default": {
+                            "type": "scripted",
+                            "script": {
+                                "source": "double tf = Math.sqrt(doc.freq); double idf = Math.log((field.docCount+1.0)/(term.docFreq+1.0)) + 1.0; double norm = 1/Math.sqrt(doc.length); return query.boost * tf * idf * norm;"
+                            }
+                        }
+                    },
+                "analysis": {
+                    "analyzer": {
+                        "basic_analyzer": {
+                            "tokenizer": "letter",
+                            "filter": [
+                                "lowercase",
+                                "stop",
+                                "stemmer"
+                            ]
+                        }
+                    }
+                }
+            },
+            "mappings": {
+                "dynamic": "strict",
+                "properties": {
+                    "movie_name": {
+                        "type": "text",
+                    },
+                    "year": {
+                        "type": "date"
+                    },
+                    "rating": {
+                        "type": "string"
+                    },
+                    "genre": {
+                        "type": "text"
+                    },
+                    "imdb": {
+                        "type": "double"
+                    },
+                    "metascore": {
+                        "type": "integer",
+                        "include_in_all": False,
+                        "index": "no"
+                    },
+                    "runtime_min": {
+                        "type": "integer"
+                    },
+                    "votes": {
+                        "type": "integer",
+                        "include_in_all": False,
+                        "index": "no"
+                    },
+                    "runtime_min": {
+                        "type": "integer"
+                    },
+                    "abstract": {
+                        "type": "string",
+                        "analyzer": "basic_analyzer",
+                    },
+                    "plot": {
+                        "type": "string",
+                        "analyzer": "basic_analyzer",
+                    }
+                }
+            }
+        }
+        self.elk_service.create_index(idx_name, idx_setting)
 
     def create_auto_index(self, idx_name):
         idx_name = idx_name
@@ -88,6 +161,7 @@ class DataService:
             }
         self.elk_service.create_index(idx_name, idx_setting)
 
+    
     def insert_data(self):
         idx_name = 'movies'
         self.create_index(idx_name)
@@ -105,6 +179,19 @@ class DataService:
     def insert_auto_data(self):
         idx_name = 'autocomplete'
         self.create_auto_index(idx_name)
+        with open('data/static/movies.json', 'r') as j:
+            contents = json.loads(j.read())
+            for movie in contents:
+                try:
+                    self.elk_service.insert_document(idx_name, movie)
+                except Exception as err:
+                    continue
+        print("Data inserted successfully.")
+        return len(contents)
+    
+    def insert_tf_idf_data(self):
+        idx_name = 'movies_tf_idf'
+        self.create_tf_idf_index(idx_name)
         with open('data/static/movies.json', 'r') as j:
             contents = json.loads(j.read())
             for movie in contents:

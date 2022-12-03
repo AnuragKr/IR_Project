@@ -9,5 +9,5 @@ class ServiceTest(TestCase):
   #   self.ds.create_index()
   
   def test_data_insertion(self):
-    self.ds.insert_auto_data()
+    self.ds.insert_tf_idf_data()
 
