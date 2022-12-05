@@ -193,7 +193,7 @@ class DataService:
                 except Exception as err:
                     continue
 
-        print("Data inserted successfully.")
+        print("Data inserted for model BM25 successfully.")
         return len(contents)
 
     def insert_auto_data(self):
@@ -219,5 +219,5 @@ class DataService:
                     self.elk_service.insert_document(idx_name, movie)
                 except Exception as err:
                     continue
-        print("Data inserted successfully.")
+        print("Data inserted for model Tf-Idf successfully.")
         return len(contents)
