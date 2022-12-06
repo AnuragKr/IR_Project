@@ -10,4 +10,6 @@ class ServiceTest(TestCase):
     self.ds.insert_data()
     time.sleep(2)
     self.ds.insert_tf_idf_data()
+    time.sleep(2)
+    self.ds.insert_auto_data()
 

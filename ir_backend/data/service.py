@@ -72,7 +72,7 @@ class DataService:
                         "include_in_all": False,
                         "index": "no"
                     },
-                    "image_link": {
+                    "poster_link": {
                         "type": "string",
                         "include_in_all": False,
                         "index": "no"
@@ -155,7 +155,7 @@ class DataService:
                         "include_in_all": False,
                         "index": "no"
                     },
-                    "image_link": {
+                    "poster_link": {
                         "type": "string",
                         "include_in_all": False,
                         "index": "no"
@@ -185,7 +185,7 @@ class DataService:
     def insert_data(self):
         idx_name = 'movies'
         self.create_index(idx_name)
-        with open('data/static/movies.json', 'r') as j:
+        with open('data/static/movies_cleaned.json', 'r') as j:
             contents = json.loads(j.read())
             for movie in contents:
                 try:
@@ -199,20 +199,20 @@ class DataService:
     def insert_auto_data(self):
         idx_name = 'autocomplete'
         self.create_auto_index(idx_name)
-        with open('data/static/movies.json', 'r') as j:
+        with open('data/static/movies_cleaned.json', 'r') as j:
             contents = json.loads(j.read())
             for movie in contents:
                 try:
                     self.elk_service.insert_document(idx_name, movie)
                 except Exception as err:
                     continue
-        print("Data inserted successfully.")
+        print("Data inserted successfully for autocomplete.")
         return len(contents)
     
     def insert_tf_idf_data(self):
         idx_name = 'movies_tf_idf'
         self.create_tf_idf_index(idx_name)
-        with open('data/static/movies.json', 'r') as j:
+        with open('data/static/movies_cleaned.json', 'r') as j:
             contents = json.loads(j.read())
             for movie in contents:
                 try:

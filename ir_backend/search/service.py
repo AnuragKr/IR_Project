@@ -77,14 +77,13 @@ class SearchService:
         {'must':query_obj}
      }
     }
-    print(search_obj)
     resp = self.elk_service.search('movies', search_obj)
     return self.elk_service.parse_response(resp)
 
   def search_text_field_tf_idf(self, search_query):
     query_obj = []
     for key, value in search_query.items():
-        query_obj.append({'term':
+        query_obj.append({'match':
                           {key: value}})
 
     search_obj = {'query':
@@ -93,6 +92,20 @@ class SearchService:
                    }
                   }
     print(search_obj)
+    resp = self.elk_service.search('movies_tf_idf', search_obj)
+    return self.elk_service.parse_response(resp)
+
+  def search_phrase_text_field_bm25(self, search_query):
+    query_obj = []
+    for key, value in search_query.items():
+        query_obj.append({'match_phrase':
+                          {key: value}})
+
+    search_obj = {'query':
+                  {'bool':
+                   {'should': query_obj}
+                   }
+                  }
     resp = self.elk_service.search('movies', search_obj)
     return self.elk_service.parse_response(resp)
 
