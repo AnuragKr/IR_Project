@@ -101,8 +101,7 @@ class DataService:
                             "tokenizer": "letter",
                             "filter": [
                                 "lowercase",
-                                "stop",
-                                "stemmer"
+                                "stop"
                             ]
                         }
                     }

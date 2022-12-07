@@ -69,7 +69,7 @@ class SearchService:
   def search_text_field_bm25(self, search_query):
     query_obj = []
     for key,value in search_query.items():
-        query_obj.append({'term':
+        query_obj.append({'match':
                           {key: value}})
 
     search_obj = {'query':
@@ -91,7 +91,6 @@ class SearchService:
                    {'must': query_obj}
                    }
                   }
-    print(search_obj)
     resp = self.elk_service.search('movies_tf_idf', search_obj)
     return self.elk_service.parse_response(resp)
 
