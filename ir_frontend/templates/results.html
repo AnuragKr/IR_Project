@@ -18,7 +18,7 @@
         padding: 5%;
         background-position: center;
         background-size: cover;
-        background-color: LightGray;
+        background-color: white;
         align-items: cente;
     
     }
@@ -51,7 +51,7 @@
                 font-family: Arial, Helvetica, sans-serif;
                 border-collapse: collapse;
                 width: 80%;
-                background-color:Gray;
+                background-color:LightBlue;
                 {% comment %} background-color:lightpink; {% endcomment %}
                 {% comment %} background-color: black;
                 color: white; {% endcomment %}
@@ -75,7 +75,20 @@
                 background-color: LightGray;
                 color: black;
               }
+              .button {
+                background-color:LightBlue;
+                border: 0.25px solid black;
+                border-color: white;
+                color: black;
+                padding: 10px 50px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                margin: 4px 2px;
+                cursor: pointer;
+              }
 
+              
      
               
 
@@ -83,20 +96,20 @@
 </head>
 <body>
 <div class="container">
-    <h3> Showing the results for the query "{{query}}"</h3>
+    <h3> Showing the 10 results out of {{tot_retrieved}}  for the query "{{query}}"</h3>
 </br>
 </br>
 {% for movie in data%}
 
    <table id="content">
     <tr>
-       <td rowspan="7" width="5%" text-align: "center" border: 1px solid black>{{forloop.counter}}</td>
+       <td rowspan="8" width="5%" text-align: "center" border: 1px solid black style="background-color:darkblue"><font color="white">{{forloop.counter}}.</font></td>
         
      </tr>
       <tr>
          <td width="20%">Title</td>
          <td >{{movie.movie_name}}</td>
-         <td rowspan="4" width="10%"><img src="https://hippy.in/wp-content/uploads/2014/06/lagaan-bollywood-movie-poster.jpg" alt="movieimage" width="150" height="200"></td>
+         <td rowspan="4" width="10%"><img src={{movie.poster_link}} alt="movieimage" width="150" height="200"></td>
       </tr>
       <tr>
         <td width="20%">Imdb Rating</td>
@@ -115,8 +128,11 @@
         <td colspan="3">{{movie.plot}}</td>
       </tr>
       <tr>
-        <td width="20%">Summary</td>
+        <td width="20%">Abstract</td>
         <td colspan="3">{{movie.abstract}}</td>
+      </tr>
+      <tr>
+        <td colspan="4" style="text-align: center"><a href={{movie.movie_link}} class="button">More Info</a></td>
       </tr>
    </table>
   </br>

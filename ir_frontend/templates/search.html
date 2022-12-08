@@ -24,7 +24,7 @@
     }
 
     input[type=text], select {
-        width: 80%;
+        width: 70%;
         padding: 12px 30px;
         margin: 8px 0;
         display: inline-block;
@@ -47,6 +47,12 @@
             
             }
               
+            .custom-select {
+                {% comment %} position: relative; {% endcomment %}
+                font-family: Arial;
+                
+              }
+              
 
 </style>
 </head>
@@ -54,7 +60,29 @@
 <div class="container">
 <form action="/results", method='post'>
     {% csrf_token %}
-    <input type="text" placeholder="type your query" name="query">
+
+    
+    <div class="custom-select" style="width:15%;">
+        <h5> Select Scoring Model </h5>
+        <select id="score" name="scoring_model">
+            <option value="">Select</option>
+            <option value="tf_idf">Tf-Idf</option>
+            <option value="bm25">BM25</option>
+        </select>
+        
+        <h5> Select Search Field </h5>
+        <select id="field" name="field">
+            <option value="">Select</option>
+            <option value="movie_name">Movie Title</option>
+            <option value="genre">Genres</option>
+            <option value="year">Year</option>
+            <option value="rating">Rating</option>
+            <option value="plot">Plot</option>
+            <option value="abstract">Abstract</option>
+            
+        </select>
+    </div>
+    <input type="text" placeholder="Type your query here" name="query">
     <input type="submit" value="Search">
 
 </form>
